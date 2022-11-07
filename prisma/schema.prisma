@@ -1,0 +1,49 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+generator erd {
+  provider = "prisma-erd-generator"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model movie {
+  id        String   @id @default(cuid())
+  cover     String
+  title     String   @unique
+  synopsis  String
+  trailer   String
+  genre     String
+  year      Int
+  director  String
+  createdAt DateTime @default(now())
+
+  reviweId String?
+  reviews  review[]
+}
+
+model reviwer {
+  id        String   @id @default(cuid())
+  name      String
+  email     String   @unique
+  createdAt DateTime @default(now())
+
+  reviews review[]
+}
+
+model review {
+  id        String   @id @default(cuid())
+  content   String
+  rating    Float
+  createdAt DateTime @default(now())
+
+  movieId String
+  movie   movie  @relation(fields: [movieId], references: [id])
+
+  reviwerId String
+  reviwer   reviwer @relation(fields: [reviwerId], references: [id])
+}
