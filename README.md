@@ -45,6 +45,7 @@ Para usar CRUD API - usando Prisma, siga estas etapas:
 
 ```
 npm run dev
+npx prisma migrate <nome-da-sua-migrate>
 ```
 
 ## 📫 Contribuindo para CRUD API - usando Prisma
